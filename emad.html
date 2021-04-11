@@ -1,0 +1,194 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    
+
+</head>
+<body>
+  
+  <div class="container-fluid col-md-10 col-md-offset-1" style="margin-top: 30px;">
+    <form name="form">
+      <div class="form-group">
+        <label for="States">States</label>
+        <input type="text" class="form-control" id="States" name="states" placeholder="States" required>
+      </div>
+      <div class="form-group">
+        <label for="Alphabet">Alphabet</label>
+        <input type="text" class="form-control" id="Alphabet" name="alphabet" placeholder="Alphabet" required>
+      </div>      
+      <div class="form-group">
+        <label for="FinalStates">Final States</label>
+        <input type="text" class="form-control" id="FinalStates" name="FinalStates" placeholder="Final States" required>
+      </div> 
+      <div class="form-group">
+        <label for="NumberOfRules">Number of Rules</label>
+        <input type="text" class="form-control" id="NumberOfRules" name="NumberOfRules" placeholder="Number of Rules" required>
+      </div> 
+      <div class="form-group">
+        <label for="GrammerRules">Grammer Rules</label>
+        <textarea rows="5" class="form-control" id="GrammerRules" name="GrammerRules" placeholder="Grammer Rules" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="String">Your String</label>
+        <textarea rows="1" class="form-control" id="String" name="String" placeholder="Your String" required></textarea>
+      </div>
+    </form>
+    <button  class="btn btn-success btn-block" onclick="return main()">Submit</button>
+
+
+    <div id="DFA" style="margin-top: 80px;">
+      <label>DFA</lable><br><br>
+
+      <form name="DFA">
+        <input type="radio" id="IsAcceptedByDFA" name="DFAMethod" value="IsAcceptedByDFA">
+        <label for="IsAcceptedByDFA">Is Accepted By DFA ?</label><br>
+        <input type="radio" id="MakeSimpleDFA" name="DFAMethod" value="MakeSimpleDFA">
+        <label for="MakeSimpleDFA">Make Simple DFA</label><br>
+        <input type="radio" id="ShowSchematicDFA" name="DFAMethod" value="ShowSchematicDFA">
+        <label for="other">Show Schematic DFA</label>
+      </form>
+    </div>
+
+    <div id="NFA" style="margin-top: 80px; margin-bottom: 40px;">
+      <label>NFA</lable><br><br>
+        
+      <form name="NFA">
+        <input type="radio" id="IsAcceptedByNFA" name="NFAMethod" value="IsAcceptedByNFA">
+        <label for="IsAcceptedByNFA">Is Accepted By NFA ?</label><br>
+        <input type="radio" id="CreateEquivalenceDFA" name="NFAMethod" value="CreateEquivalenceDFA">
+        <label for="MakeSimpleDFA">Create Equivalence DFA</label><br>
+        <input type="radio" id="FindRegExp" name="NFAMethod" value="FindRegExp">
+        <label for="other">Find RegExp</label><br>
+        <input type="radio" id="ShowSchematicNFA" name="NFAMethod" value="ShowSchematicNFA">
+        <label for="other">Show Schematic NFA</label>
+      </form>
+    </div>
+
+  </div>
+
+  
+ 
+  <script>
+
+    class DFA
+    {
+      constructor(states,alphabet,final_states,grammer)
+      {
+        debugger;
+        this.states = states;
+        this.alphabet = alphabet;
+        this.final_states = final_states;
+        this.grammer = grammer;
+        this.graph = this.CreateGraph();
+      }
+
+      CreateGraph()
+      {
+        var graph = {};
+        for(var x in this.grammer)
+        {
+          var rule = this.grammer[x].split(",")
+          if(this.final_states.includes(rule[1]))
+          {
+            try
+            {
+              graph[rule[0]].push([rule[1],rule[2],1]);
+            }
+            catch(err)
+            {
+              graph[rule[0]] =[ [rule[1],rule[2],1] ];
+            }
+          }
+          else
+          {
+            try
+            {
+              graph[rule[0]].push([rule[1],rule[2],0]);
+            }
+            catch(err)
+            {
+              graph[rule[0]] =[ [rule[1],rule[2],0] ];
+            }
+          }
+        }
+        return graph;
+      }
+
+      IsAcceptedByDFA(string)
+      {
+        var current_state = this.states[0];
+        for (var i in string)
+        {
+          var flag = false;
+          var ways = this.graph[current_state];
+          for(var j in ways)
+          {
+            if(string[i] == ways[j][1])
+            {
+              flag = true;
+              current_state = ways[j][0];
+              break;
+            }
+          }
+        }
+
+        if(flag == true)
+        {
+          return true;
+        }
+
+        return false
+      }
+
+      MakeSimpleDFA()
+      {
+        return true
+      }
+
+      ShowSchematicDFA()
+      {
+        return true
+      }
+
+    }
+
+    class NFA extends DFA
+    {
+      //
+    }
+
+    function main()
+    {
+      var data = document.forms["form"];
+      var string = data["String"].value;
+      var dfa = new DFA(data["states"].value.split(","), data["alphabet"].value.split(","), data["FinalStates"].value.split(","), data["GrammerRules"].value.split("\n"));
+      console.log(dfa.graph);
+      alert(dfa.states);
+      alert(dfa.IsAcceptedByDFA(string));
+      
+      return true;
+    }
+
+
+
+    
+  </script>
+
+
+</body>
+</html>
+
+
