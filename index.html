@@ -1,0 +1,99 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>finite automata</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- vis.js cdn -->
+  <script src="https://unpkg.com/vis-network@9.0.4/standalone/umd/vis-network.min.js"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+
+  <script src="./DFA.js"></script>
+
+  <script src="./NFA.js"></script>
+
+  <script src="./main.js"></script>
+
+</head>
+
+<body>
+
+  <div class="container-fluid col-md-10 col-md-offset-1" style="margin-top: 30px;">
+    <form name="form">
+      <div class="form-group">
+        <label for="states">States:</label>
+        <input type="text" class="form-control" style="border-color:green;" id="states" name="states"
+          placeholder="states" required>
+      </div>
+      <div class="form-group">
+        <label for="alphabets">Alphabets:</label>
+        <input type="text" class="form-control" style="border-color:green;" id="alphabets" name="alphabets"
+          placeholder="alphabets" required>
+      </div>
+      <div class="form-group">
+        <label for="finalStates">Final States:</label>
+        <input type="text" class="form-control" style="border-color:green;" id="finalStates" name="finalStates"
+          placeholder="final states" required>
+      </div>
+      <div class="form-group">
+        <label for="numberOfTransitions">Number of Transitions:</label>
+        <input type="text" class="form-control" style="border-color:green;" id="numberOfTransitions"
+          name="numberOfTransitions" placeholder="number of transitions" required>
+      </div>
+      <div class="form-group">
+        <label for="transitions">Transitions:</label>
+        <textarea rows="5" class="form-control" style="border-color:green;" id="transitions" name="transitions"
+          placeholder="transitions" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="string">Your Input String:</label>
+        <textarea rows="1" class="form-control" style="border-color:green;" id="string" name="string"
+          placeholder="your string" required></textarea>
+      </div>
+    </form>
+
+    <div style="margin-top: 80px; margin-bottom: 40px; border:1px solid green; padding:20px; border-radius:25px;">
+      <label>DFA</lable><br><br>
+
+        <form name="FA" id="FA">
+          <input type="radio" id="isAcceptedByDFA" name="FAMethod" value="isAcceptedByDFA">
+          <label for="isAcceptedByDFA">Is Accepted By DFA ?</label><br>
+          <input type="radio" id="makeSimpleDFA" name="FAMethod" value="makeSimpleDFA">
+          <label for="makeSimpleDFA">Make Simple DFA</label><br>
+          <input type="radio" id="showSchematicDFA" name="FAMethod" value="showSchematicDFA">
+          <label for="showSchematicDFA">Show Schematic DFA</label><br>
+
+          <label style="margin-top: 60px;">NFA</lable><br><br>
+            <input type="radio" id="isAcceptedByNFA" name="FAMethod" value="isAcceptedByNFA">
+            <label for="isAcceptedByNFA">Is Accepted By NFA ?</label><br>
+            <input type="radio" id="createEquivalentDFA" name="FAMethod" value="createEquivalentDFA">
+            <label for="createEquivalentDFA">Create Equivalent DFA</label><br>
+            <input type="radio" id="findRegExp" name="FAMethod" value="findRegExp">
+            <label for="findRegExp">Find RegExp</label><br>
+            <input type="radio" id="showSchematicNFA" name="FAMethod" value="showSchematicNFA">
+            <label for="showSchematicNFA">Show Schematic NFA</label>
+        </form>
+    </div>
+    <button class="btn btn-success btn-block" style="margin-top: 20px; margin-bottom: 30px;"
+      onclick="return main();">Run</button>
+
+    <div id="graphContainer" style="margin-bottom: 40px; border:1px solid green; border-radius:25px;"></div>
+  </div>
+
+</body>
+
+</html>
