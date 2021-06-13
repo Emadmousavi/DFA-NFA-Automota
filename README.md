@@ -1,4 +1,4 @@
-DFA/NFA Automota
+# DFA/NFA Automota
 
 
 Project descriptionthis is the "Theory of Languages and Automota" course project
@@ -10,10 +10,10 @@ using this project you can give a DFA or NFA of a machine and as an output you h
 - find the corresponding regular expression of machine
 
 
--make simple DFA
+- make simple DFA
 
 
--conver DFA to NFA
+- conver DFA to NFA
 
 
 ...
